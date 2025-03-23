@@ -1,0 +1,333 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2821
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
+{\colortbl;\red255\green255\blue255;\red253\green0\blue0;\red253\green0\blue0;\red217\green11\blue5;
+}
+{\*\expandedcolortbl;;\cspthree\c91917\c6971\c3322;\cspthree\c91917\c6294\c4022;\cssrgb\c88946\c14202\c0;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 -- Hands-on: Write queries to retrieve and filter data from a sample 'Employee' table--\
+\
+\
+--created sequences\
+\
+CREATE SEQUENCE empid_SEQ START WITH 1 INCREMENT BY 1 CACHE 10;\
+CREATE SEQUENCE deptid_SEQ START WITH 1 INCREMENT BY 1 CACHE 10;\
+CREATE SEQUENCE assignid_SEQ START WITH 1 INCREMENT BY 1 CACHE 10;\
+CREATE SEQUENCE grdid_SEQ START WITH 1 INCREMENT BY 1 CACHE 10;\
+CREATE SEQUENCE gstpid_SEQ START WITH 1 INCREMENT BY 1 CACHE 10;\
+CREATE SEQUENCE loctid_SEQ START WITH 1 INCREMENT BY 1 CACHE 10;\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf2 -- create department table \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+create table departments(\
+deptid NUMBER PRIMARY KEY,\
+dept_name VARCHAR(100) UNIQUE,\
+dept_code VARCHAR (50)\
+);\
+\
+ALTER TABLE DEPARTMENTS \
+ADD CONSTRAINT FK_\
+\
+SELECT * FROM DEPARTMENTS\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf3 --create assignment table \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+create table Assignments (\
+assignid NUMBER PRIMARY KEY,\
+empid NUMBER,\
+deptid NUMBER,\
+grdid NUMBER, \
+gstpid NUMBER,\
+fullname varchar(100),\
+loctid NUMBER,\
+\
+CONSTRAINT fk_assign_empid FOREIGN KEY(empid)\
+REFERENCES employee(empid),\
+CONSTRAINT fk_assign_deptid FOREIGN KEY(deptid)\
+REFERENCES departments(deptid),\
+CONSTRAINT fk_assign_grdid FOREIGN KEY(grdid)\
+REFERENCES grades(grdid),\
+CONSTRAINT fk_assign_gstpid FOREIGN KEY(gstpid)\
+REFERENCES grd_stp(gstpid),\
+CONSTRAINT fk_assign_loctid FOREIGN KEY(loctid)\
+REFERENCES loc_table(loctid)\
+);\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf4 -- create gradestep (grs_stp) table \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+select * from grd_stp\
+\
+create table grd_stp(\
+gstpid NUMBER PRIMARY KEY,\
+gstp_level VARCHAR(50)\
+);\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf4 -- create location table \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+create table loc_table(\
+LOCTID NUMBER PRIMARY KEY, \
+LOCT_NAME VARCHAR (50)\
+\
+);\
+\
+\
+\
+SELECT * FROM grades;\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf4 --create grades table \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+create table grades(\
+Grdid NUMBER PRIMARY KEY,\
+grd_name VARCHAR(100)\
+\
+);\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf4 --create employee table \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+create table Employee (\
+empid NUMBER PRIMARY KEY,\
+first_name VARCHAR2(100),\
+last_name VARCHAR2 (100),\
+hire_date DATE NOT NULL,\
+d_o_b DATE NOT NULL,\
+salary NUMBER (10,2),\
+deptid NUMBER,\
+CONSTRAINT fk_emp_deptid FOREIGN KEY (deptid)\
+REFERENCES Departments (deptid)\
+);\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf4 -- Insert record into employee table\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+INSERT INTO EMPLOYEE(empid, first_name, last_name, hire_date, d_o_b, salary, deptid)\
+values(empid_seq.NEXTVAL, 'Matthew', 'Pawson', to_date('06-01-1995','dd-mm-yyyy'), to_date('05-01-1977','dd-mm-yyyy'), 750000, null);\
+\
+insert into employee(deptid, dept_name)values(1, 'INFORMATION TECHNOLOGY');\
+insert into employee(deptid, dept_name)values(3, 'TECHNICAL SUPPORT')\
+insert into employee(deptid, dept_name)values(2, 'SOFTWARE DEVELOPMENT')\
+insert into employee(deptid, dept_name)values(11, 'CYBER SECURITY')\
+insert into employee(deptid, dept_name)values(4, 'NETWORK AND INFRASTRUCTURE')\
+insert into employee(deptid, dept_name)values(1, 'INFORMATION TECHNOLOGY')\
+insert into employee(deptid, dept_name)values(4, 'NETWORK AND INFRASTRUCTURE')\
+insert into employee(deptid, dept_name)values(12, 'DATA SCIENCE AND ANALYTICS')\
+insert into employee(deptid, dept_name)values(11, 'CYBER SECURITY')\
+insert into employee(deptid, dept_name)values(1, 'INFORMATION TECHNOLOGY')\
+\
+\
+insert into employee(deptid, dept_name)values(1, 'INFORMATION TECHNOLOGY');\
+insert into employee(deptid, dept_name)values(3, 'TECHNICAL SUPPORT')\
+insert into employee(deptid, dept_name)values(2, 'SOFTWARE DEVELOPMENT')\
+insert into employee(deptid, dept_name)values(11, 'CYBER SECURITY')\
+insert into employee(deptid, dept_name)values(4, 'NETWORK AND INFRASTRUCTURE')\
+insert into employee(deptid, dept_name)values(1, 'INFORMATION TECHNOLOGY')\
+insert into employee(deptid, dept_name)values(4, 'NETWORK AND INFRASTRUCTURE')\
+insert into employee(deptid, dept_name)values(12, 'DATA SCIENCE AND ANALYTICS')\
+insert into employee(deptid, dept_name)values(11, 'CYBER SECURITY')\
+insert into employee(deptid, dept_name)values(1, 'INFORMATION TECHNOLOGY')\
+\
+\
+update employee\
+set deptid = 2, dept_name = 'SOFTWARE DEVELOPMENT' \
+WHERE EMPID = 13;\
+\
+ALTER TABLE EMPLOYEE\
+RENAME COLUMN DEPT_NAME TO JOB;\
+\
+SELECT * FROM LOC_TABLE \
+select * from DEPARTMENTS\
+\
+UPDATE DEPARTMENTS\
+SET LOC_ID = '1'\
+WHERE DEPTID = 1;\
+\
+\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf4 -Insert record for department table \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+\
+SELECT * FROM DEPARTMENTS\
+\
+SELECT * FROM LOC_TABLE \
+\
+ALTER  TABLE DEPARTMENTS\
+ADD   LOC_ID NUMBER;\
+\
+SELECT E.FIRST_NAME || ' '|| E.LAST_NAME AS FULLNAME, D.DEPTID, D.LOC_ID\
+FROM EMPLOYEE E\
+JOIN DEPARTMENTS D ON E.DEPTID = D.DEPTID;\
+--JOIN LOC_TABLE L ON L.LOCTID = D.DEPTID;\
+\
+SELECT * FROM EMPLOYEE\
+\
+\
+\
+\
+insert into departments(deptid, dept_name, dept_code)values(deptid_seq.NEXTVAL, 'NETWORK AND INFRASTRUCTURE', '006');\
+\
+UPDATE employee\
+SET job ='NETWORK AND INFRASTRUCTURE'\
+WHERE DEPTID = 4;\
+\
+SELECT * FROM GRADES\
+\
+ALTER TABLE EMPLOYEE\
+ADD  DEPT_NAME VARCHAR2(50);\
+\
+SELECT * FROM LOC_TABLE\
+\
+SELECT * FROM GRADES\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf4 --INSERT INTO LOC_TABLE\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+INSERT INTO LOC_TABLE (LOCTID, LOCT_NAME )VALUES(LOCTID_SEQ.NEXTVAL, 'LAGOS');\
+INSERT INTO LOC_TABLE (LOCTID, LOCT_NAME )VALUES(LOCTID_SEQ.NEXTVAL, 'ABIA');\
+INSERT INTO LOC_TABLE (LOCTID, LOCT_NAME )VALUES(LOCTID_SEQ.NEXTVAL, 'PLATEAU');\
+INSERT INTO LOC_TABLE (LOCTID, LOCT_NAME )VALUES(LOCTID_SEQ.NEXTVAL, 'OSUN');\
+INSERT INTO LOC_TABLE (LOCTID, LOCT_NAME )VALUES(LOCTID_SEQ.NEXTVAL, 'KANO');\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf4 -- INSERT INT0 GRADES\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 INSERT INTO GRADES(GRDID, GRD_NAME)VALUES(GRDID_SEQ.NEXTVAL, 'JUNIOR');\
+INSERT INTO GRADES(GRDID, GRD_NAME)VALUES(GRDID_SEQ.NEXTVAL, 'TEAM LEAD');\
+INSERT INTO GRADES(GRDID, GRD_NAME)VALUES(GRDID_SEQ.NEXTVAL, 'SENIOR');\
+INSERT INTO GRADES(GRDID, GRD_NAME)VALUES(GRDID_SEQ.NEXTVAL, 'MANAGER');\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b \cf4 -- INSERT INTO GRADE STEPS\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0 \cf0 INSERT INTO GRD_STP(GSTPID, GSTP_LEVEL)VALUES(GSTPID_SEQ.NEXTVAL, 1);\
+INSERT INTO GRD_STP(GSTPID, GSTP_LEVEL)VALUES(GSTPID_SEQ.NEXTVAL, 2);\
+INSERT INTO GRD_STP(GSTPID, GSTP_LEVEL)VALUES(GSTPID_SEQ.NEXTVAL,3);\
+\
+select * from employee\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf4 INSERT INTO ASSIGNMENT TABLE\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+INSERT INTO ASSIGNMENTS(ASSIGNID, EMPID, FULLNAME, DEPTID, LOCTID, GRDID, GSTPID)\
+VALUES(ASSIGNID_SEQ.NEXTVAL, 11, 'Wendy Mirabel', 1, 1, 12, 1 );\
+INSERT INTO ASSIGNMENTS(ASSIGNID, EMPID, FULLNAME, DEPTID, LOCTID, GRDID, GSTPID)\
+VALUES(ASSIGNID_SEQ.NEXTVAL, 2, 'Glendon Baron', 2, 1, 12, 1 );\
+INSERT INTO ASSIGNMENTS(ASSIGNID, EMPID, FULLNAME, DEPTID, LOCTID, GRDID, GSTPID)\
+VALUES(ASSIGNID_SEQ.NEXTVAL, 12, 'Johnson Peterson', 12, 3, 11, NULL );\
+INSERT INTO ASSIGNMENTS(ASSIGNID, EMPID, FULLNAME, DEPTID, LOCTID, GRDID, GSTPID)\
+VALUES(ASSIGNID_SEQ.NEXTVAL, 14, 'Mary Justus', 11, 2, 1, 11 );\
+INSERT INTO ASSIGNMENTS(ASSIGNID, EMPID, FULLNAME, DEPTID, LOCTID, GRDID, GSTPID)\
+VALUES(ASSIGNID_SEQ.NEXTVAL, 4, 'Alex Joshua', 3, 4, 13, NULL );\
+INSERT INTO ASSIGNMENTS(ASSIGNID, EMPID, FULLNAME, DEPTID, LOCTID, GRDID, GSTPID)\
+VALUES(ASSIGNID_SEQ.NEXTVAL, 13, 'Wilson Patel', 2, 1, 1, 1 );\
+INSERT INTO ASSIGNMENTS(ASSIGNID, EMPID, FULLNAME, DEPTID, LOCTID, GRDID, GSTPID)\
+VALUES(ASSIGNID_SEQ.NEXTVAL, 3, 'Hellen Martin', 4, 11, 12, 2 );\
+INSERT INTO ASSIGNMENTS(ASSIGNID, EMPID, FULLNAME, DEPTID, LOCTID, GRDID, GSTPID)\
+VALUES(ASSIGNID_SEQ.NEXTVAL, 5, 'Matthew Pawson', 1, 1, 12, 2 );\
+INSERT INTO ASSIGNMENTS(ASSIGNID, EMPID, FULLNAME, DEPTID, LOCTID, GRDID, GSTPID)\
+VALUES(ASSIGNID_SEQ.NEXTVAL, 1, 'Brian Gibson', 12, 3, 1, 2 );\
+INSERT INTO ASSIGNMENTS(ASSIGNID, EMPID, FULLNAME, DEPTID, LOCTID, GRDID, GSTPID)\
+VALUES(ASSIGNID_SEQ.NEXTVAL, 15, 'Bob Carpenter', 11, 2, 11, NULL );\
+\
+select *from DEPARTMENTS\
+\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf4 QUERY TO RETRIEVE TWO ROWS OF RECORDS\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+SELECT  E.FIRST_NAME ||'  '|| E.LAST_NAME AS FULLNAME,  E.SALARY, D.DEPT_NAME, L.LOCT_NAME, G.GRD_NAME ||' - '|| GS.GSTP_LEVEL AS GRD_CODE\
+FROM EMPLOYEE E\
+JOIN ASSIGNMENTS A ON A.EMPID = E.EMPID\
+JOIN DEPARTMENTS D ON A.DEPTID = D.DEPTID\
+JOIN LOC_TABLE L ON A.LOCTID = L.LOCTID\
+JOIN GRADES G ON A.GRDID = G.GRDID\
+JOIN GRD_STP GS ON A.GSTPID = GS.GSTPID\
+FETCH FIRST 2 ROWS ONLY;\
+\
+\
+SELECT E.FIRST_NAME || ' ' || E.LAST_NAME AS EMPLOYEE_NAME, E.SALARY, E.JOB, D.DEPT_NAME, L.LOCT_NAME, \
+G.GRD_NAME || '-' || GS.GSTP_LEVEL AS GRADE_CODE\
+FROM EMPLOYEE E\
+JOIN ASSIGNMENTS A ON A.EMPID = E.EMPID\
+JOIN DEPARTMENTS D ON A.DEPTID = D.DEPTID\
+JOIN LOC_TABLE L ON A.LOCTID = L.LOCTID\
+JOIN GRADES G ON A.GRDID = G.GRDID\
+LEFT JOIN GRD_STP GS ON A.GSTPID = GS.GSTPID;\
+\
+\
+\
+SELECT  E.FIRST_NAME ||'  '|| E.LAST_NAME AS FULLNAME,  \
+    E.SALARY, \
+    D.DEPT_NAME, \
+    L.LOCT_NAME, \
+    G.GRD_NAME ||' - '|| GS.GSTP_LEVEL AS GRD_CODE\
+FROM EMPLOYEE E\
+JOIN ASSIGNMENTS A ON A.EMPID = E.EMPID\
+JOIN DEPARTMENTS D ON A.DEPTID = D.DEPTID\
+JOIN LOC_TABLE L ON A.LOCTID = L.LOCTID\
+JOIN GRADES G ON A.GRDID = G.GRDID\
+JOIN GRD_STP GS ON A.GSTPID = GS.GSTPID\
+WHERE E.EMPID = 11;\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97*******************\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+WHERE E.EMPID = IN (1,2);\
+\
+SELECT e1.EMPID AS Employee_ID, e1.FIRST_NAME || e1.LAST_NAME AS FULLNAME, \
+       e2.EMPID AS Manager_ID, e2.FIRST_NAME || e1.LAST_NAME AS FULLNAME\
+FROM EMPLOYEE e1\
+JOIN EMPLOYEE e2 ON e1.MANAGER_ID = e2.EMPID\
+WHERE e1.EMPID IN (1, 2);\
+\
+\
+SELECT * FROM LOC_TABLE}
